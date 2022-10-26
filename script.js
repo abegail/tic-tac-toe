@@ -1,8 +1,8 @@
 const gameBoard = (() => {
     const board = [
-        ['','','',],
-        ['','','',],
-        ['','','',]
+        ['','','x',],
+        ['','x','',],
+        ['','','o',]
     ]
     const addMarker = (marker, xIndex, yIndex) => {
         if(board[xIndex][yIndex] !== '') {
@@ -36,17 +36,42 @@ const gameBoard = (() => {
         }
         return hasWinner;
     }
+    const resetBoard = () => {
+        board.forEach(row => {
+            for (let y = 0; y < 3; y++) {
+                row[y] = ''
+            }
+        })
+    }
     return {
         board,
         addMarker,
-        checkForWinner
+        checkForWinner,
+        resetBoard
     }
 })();
 
 const player = (name, marker) => {
     const getMarker = () => marker;
+    const placeMarker = (xIndex, yIndex) => gameBoard.addMarker(marker, xIndex, yIndex);
     return {
         name,
-        getMarker
+        getMarker,
+        placeMarker
     }
 }
+
+const game = (() => {
+    const createPlayer = (name, marker) => player(name, marker);
+    const displayBoard = () => {
+        console.log(gameBoard.board);
+    }
+    const newGame = () => gameBoard.resetBoard()
+    return {
+        displayBoard,
+        createPlayer,
+        newGame
+    }
+})();
+
+const player1 = game.createPlayer('abby','x');
