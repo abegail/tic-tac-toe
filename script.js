@@ -1,8 +1,8 @@
 const gameBoard = (() => {
     const board = [
-        ['o','x','o',],
-        ['x','o','o',],
-        ['o','o','x',]
+        ['','','',],
+        ['','','',],
+        ['','','',]
     ]
     const addMarker = (marker, xIndex, yIndex) => {
         if(board[xIndex][yIndex] !== '') {
@@ -43,3 +43,10 @@ const gameBoard = (() => {
     }
 })();
 
+const player = (name, marker) => {
+    const getMarker = () => marker;
+    return {
+        name,
+        getMarker
+    }
+}
