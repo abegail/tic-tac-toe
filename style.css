@@ -4,14 +4,20 @@
 }
 
 .board-container {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: stretch;
+    align-items: stretch;
 }
 
 .square {
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hidden {

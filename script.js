@@ -71,6 +71,18 @@ const game = (() => {
     }
     const displayBoard = () => {
         console.log(gameBoard.board);
+        let x = 0;
+        let y = 0;
+        squares.forEach(square => {
+            square.textContent = gameBoard.board[x][y]
+            if (y<2) {
+                y++
+            }
+            else {
+                x++;
+                y = 0;
+            }
+        })
     }
     const newGame = () => gameBoard.resetBoard();
     const makeAMove = (xIndex, yIndex) => {
@@ -106,6 +118,7 @@ startBtn.addEventListener('click', () => {
 
     game.createPlayer('abby', 'x');
     game.createPlayer('jinger', 'o');
+    game.displayBoard();
 })
 
 const squares = document.querySelectorAll('.square');
