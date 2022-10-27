@@ -99,6 +99,17 @@ const game = (() => {
             }
             else console.log('Illegal move!')
         }
+        if (movesCounter === 9) {
+            if (!gameBoard.checkForWinner()) {
+                gameDrawContainer.classList.remove('hidden');
+            }
+        }
+        if (movesCounter > 4) {
+            if (gameBoard.checkForWinner()) {
+                // boardContainer.classList.add('hidden');
+                gameOverContainer.classList.remove('hidden');
+            }
+        }
     }
     return {
         displayBoard,
@@ -108,8 +119,10 @@ const game = (() => {
     }
 })();
 
-const boardContainer = document.querySelector('.board-container');
+const boardContainer = document.querySelector('.view.board-container');
 const startContainer = document.querySelector('.view.start');
+const gameOverContainer = document.querySelector('.view.game-over');
+const gameDrawContainer = document.querySelector('.view.game-draw');
 
 const startBtn = document.getElementById('startGame');
 startBtn.addEventListener('click', () => {
