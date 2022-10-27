@@ -1,8 +1,8 @@
 const gameBoard = (() => {
     const board = [
-        ['','','x',],
-        ['','x','',],
-        ['','','o',]
+        ['','','',],
+        ['','','',],
+        ['','','',]
     ]
     const addMarker = (marker, xIndex, yIndex) => {
         if(board[xIndex][yIndex] !== '') {
@@ -62,16 +62,57 @@ const player = (name, marker) => {
 }
 
 const game = (() => {
-    const createPlayer = (name, marker) => player(name, marker);
+    let movesCounter = 0;
+    let player1 = {};
+    let player2 = {};
+    const createPlayer = (name, marker) => {
+        if (Object.keys(player1).length === 0) player1 = Object.assign(player1, player(name, marker));
+        else player2 = Object.assign(player2, player(name, marker));
+    }
     const displayBoard = () => {
         console.log(gameBoard.board);
     }
-    const newGame = () => gameBoard.resetBoard()
+    const newGame = () => gameBoard.resetBoard();
+    const makeAMove = (xIndex, yIndex) => {
+        if (movesCounter % 2 === 0) {
+            if (player1.placeMarker(xIndex, yIndex)) {
+                movesCounter++;
+                console.log('Move success!')
+            }
+            else console.log('Illegal move!')
+        } else {
+            if (player2.placeMarker(xIndex, yIndex)) {
+                movesCounter++;
+                console.log('Move success!')
+            }
+            else console.log('Illegal move!')
+        }
+    }
     return {
         displayBoard,
+        newGame,
         createPlayer,
-        newGame
+        makeAMove
     }
 })();
 
-const player1 = game.createPlayer('abby','x');
+const boardContainer = document.querySelector('.board-container');
+const startContainer = document.querySelector('.view.start');
+
+const startBtn = document.getElementById('startGame');
+startBtn.addEventListener('click', () => {
+    boardContainer.classList.remove('hidden');
+    startContainer.classList.add('hidden');
+
+    game.createPlayer('abby', 'x');
+    game.createPlayer('jinger', 'o');
+})
+
+const squares = document.querySelectorAll('.square');
+squares.forEach(square => {
+    square.addEventListener('click', () => {
+        console.log(square.getAttribute('data-x'), square.getAttribute('data-y'));
+        game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
+        game.displayBoard();
+    })
+})

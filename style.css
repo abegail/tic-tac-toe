@@ -2,3 +2,28 @@
     margin: 0;
     padding: 0;
 }
+
+.board-container {
+    width: 200px;
+    height: 200px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.square {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/* WILL BE REMOVED */
+
+.board-container {
+    border: 1px solid black;
+}
+
+.board-container > div {
+    border: 1px solid red;
+}
