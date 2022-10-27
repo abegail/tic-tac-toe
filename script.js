@@ -102,14 +102,23 @@ const game = (() => {
         if (movesCounter === 9) {
             if (!gameBoard.checkForWinner()) {
                 gameDrawContainer.classList.remove('hidden');
+                displayBoard();
+                removeEventListeners();
             }
         }
         if (movesCounter > 4) {
             if (gameBoard.checkForWinner()) {
                 // boardContainer.classList.add('hidden');
                 gameOverContainer.classList.remove('hidden');
+                displayBoard();
+                removeEventListeners();
             }
         }
+    }
+    function removeEventListeners() {
+        squares.forEach(square => {
+            square.replaceWith(square.cloneNode(true));
+        })
     }
     return {
         displayBoard,
