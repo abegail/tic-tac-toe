@@ -79,7 +79,6 @@ const game = (() => {
         let y = 0;
         squares.forEach(square => {
             square.textContent = gameBoard.board[x][y]
-            console.log(square.textContent);
             if (y<2) {
                 y++
             }
@@ -98,8 +97,6 @@ const game = (() => {
     }
     const makeAMove = (xIndex, yIndex) => {
         even = movesCounter % 2 === 0 ? true : false;
-        console.log(movesCounter);
-        console.log(even);
         if (movesCounter % 2 === 0) {
             if (player1.placeMarker(xIndex, yIndex)) {
                 movesCounter++;
@@ -131,7 +128,6 @@ const game = (() => {
         squares.forEach(square => {
             square.classList.remove('disabled');
             square.addEventListener('click', () => {
-                console.log(square.getAttribute('data-x'), square.getAttribute('data-y'));
                 game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
         })
     })
@@ -176,17 +172,8 @@ startBtn.addEventListener('click', () => {
     game.addEventListeners();
 })
 
-// const squares = document.querySelectorAll('.square');
-// squares.forEach(square => {
-//     square.addEventListener('click', () => {
-//         console.log(square.getAttribute('data-x'), square.getAttribute('data-y'));
-//         game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
-//     })
-// })
-
 const newGameBtn = document.getElementById('restart-game');
 newGameBtn.addEventListener('click', () => {
     gameOverContainer.classList.add('hidden');
-    console.log('hallu!');
     game.newGame();
 })
