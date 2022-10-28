@@ -99,18 +99,16 @@ const game = (() => {
             }
             else console.log('Illegal move!')
         }
+        displayBoard();
         if (movesCounter === 9) {
             if (!gameBoard.checkForWinner()) {
                 gameDrawContainer.classList.remove('hidden');
-                displayBoard();
                 removeEventListeners();
             }
         }
         if (movesCounter > 4) {
             if (gameBoard.checkForWinner()) {
-                // boardContainer.classList.add('hidden');
                 gameOverContainer.classList.remove('hidden');
-                displayBoard();
                 removeEventListeners();
             }
         }
@@ -121,7 +119,6 @@ const game = (() => {
         })
     }
     return {
-        displayBoard,
         newGame,
         createPlayer,
         makeAMove
@@ -132,15 +129,24 @@ const boardContainer = document.querySelector('.view.board-container');
 const startContainer = document.querySelector('.view.start');
 const gameOverContainer = document.querySelector('.view.game-over');
 const gameDrawContainer = document.querySelector('.view.game-draw');
+const playerSetupContainer = document.querySelector('.view.player-setup');
+
+const playBtn = document.getElementById('play');
+playBtn.addEventListener('click', () => {
+    playerSetupContainer.classList.remove('hidden');
+    startContainer.classList.add('hidden');
+})
 
 const startBtn = document.getElementById('startGame');
 startBtn.addEventListener('click', () => {
     boardContainer.classList.remove('hidden');
-    startContainer.classList.add('hidden');
+    playerSetupContainer.classList.add('hidden');
 
-    game.createPlayer('abby', 'x');
-    game.createPlayer('jinger', 'o');
-    game.displayBoard();
+    const player1 = document.getElementById('player-1').value || 'Player 1';
+    const player2 = document.getElementById('player-2').value || 'Player 2';
+
+    game.createPlayer(player1, 'x');
+    game.createPlayer(player2, 'o');
 })
 
 const squares = document.querySelectorAll('.square');
@@ -148,6 +154,5 @@ squares.forEach(square => {
     square.addEventListener('click', () => {
         console.log(square.getAttribute('data-x'), square.getAttribute('data-y'));
         game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
-        game.displayBoard();
     })
 })

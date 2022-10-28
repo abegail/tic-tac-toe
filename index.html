@@ -10,7 +10,22 @@
 </head>
 <body>
     <div class="view start">
-        <button type="button" id="startGame">Start Game</button>
+        <button type="button" id="play">Play!</button>
+    </div>
+    <div class="view player-setup hidden">
+        <form id="player-input">
+            <div class="player-1">
+                <label for="player-1">Player 1 (x)</label>
+                <input type="text" name="player-1" id="player-1">
+            </div>
+            <div class="player-2">
+                <label for="player-2">Player 2 (o)</label>
+                <input type="text" name="player-2" id="player-2">
+            </div>
+            <div class="start-game">
+                <button type="button" id="startGame">Start Game</button>
+            </div>
+        </form>
     </div>
     <div class="view board-container hidden">
         <div class="square" data-x="0" data-y="0"></div>
