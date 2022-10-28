@@ -70,6 +70,8 @@ const game = (() => {
         else player2 = Object.assign(player2, player(name, marker));
     }
     const displayBoard = () => {
+        if (movesCounter % 2 === 0) turnDetail.textContent = `${player1.name}'s turn (${player1.getMarker()})`;
+        else turnDetail.textContent = `${player2.name}'s turn (${player2.getMarker()})`;
         console.log(gameBoard.board);
         let x = 0;
         let y = 0;
@@ -103,12 +105,14 @@ const game = (() => {
         if (movesCounter === 9) {
             if (!gameBoard.checkForWinner()) {
                 gameDrawContainer.classList.remove('hidden');
+                turnDetail.textContent = ''
                 removeEventListeners();
             }
         }
         if (movesCounter > 4) {
             if (gameBoard.checkForWinner()) {
                 gameOverContainer.classList.remove('hidden');
+                turnDetail.textContent = ''
                 removeEventListeners();
             }
         }
@@ -121,7 +125,8 @@ const game = (() => {
     return {
         newGame,
         createPlayer,
-        makeAMove
+        makeAMove,
+        displayBoard
     }
 })();
 
@@ -130,6 +135,7 @@ const startContainer = document.querySelector('.view.start');
 const gameOverContainer = document.querySelector('.view.game-over');
 const gameDrawContainer = document.querySelector('.view.game-draw');
 const playerSetupContainer = document.querySelector('.view.player-setup');
+const turnDetail = document.querySelector('.turn-detail');
 
 const playBtn = document.getElementById('play');
 playBtn.addEventListener('click', () => {
@@ -147,6 +153,7 @@ startBtn.addEventListener('click', () => {
 
     game.createPlayer(player1, 'x');
     game.createPlayer(player2, 'o');
+    game.displayBoard();
 })
 
 const squares = document.querySelectorAll('.square');
