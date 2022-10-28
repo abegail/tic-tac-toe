@@ -62,7 +62,9 @@ const player = (name, marker) => {
 }
 
 const game = (() => {
+    const squares = document.querySelectorAll('.square');
     let movesCounter = 0;
+    let even = true;
     let player1 = {};
     let player2 = {};
     const createPlayer = (name, marker) => {
@@ -77,6 +79,7 @@ const game = (() => {
         let y = 0;
         squares.forEach(square => {
             square.textContent = gameBoard.board[x][y]
+            console.log(square.textContent);
             if (y<2) {
                 y++
             }
@@ -86,8 +89,17 @@ const game = (() => {
             }
         })
     }
-    const newGame = () => gameBoard.resetBoard();
+    const newGame = () => {
+        gameBoard.resetBoard();
+        movesCounter = 0;
+        even = true;
+        displayBoard();
+        addEventListeners();
+    }
     const makeAMove = (xIndex, yIndex) => {
+        even = movesCounter % 2 === 0 ? true : false;
+        console.log(movesCounter);
+        console.log(even);
         if (movesCounter % 2 === 0) {
             if (player1.placeMarker(xIndex, yIndex)) {
                 movesCounter++;
@@ -102,38 +114,45 @@ const game = (() => {
             else console.log('Illegal move!')
         }
         displayBoard();
-        if (movesCounter === 9) {
-            if (!gameBoard.checkForWinner()) {
-                gameDrawContainer.classList.remove('hidden');
-                turnDetail.textContent = ''
-                removeEventListeners();
-            }
-        }
         if (movesCounter > 4) {
             if (gameBoard.checkForWinner()) {
+                let winner = even ? player1.name : player2.name;
+                turnDetail.textContent = `Game Over! ${winner} wins!`
                 gameOverContainer.classList.remove('hidden');
-                turnDetail.textContent = ''
+                removeEventListeners();
+            } else if (movesCounter === 9) {
+                turnDetail.textContent = `Game Over! It's a draw!`
+                gameOverContainer.classList.remove('hidden');
                 removeEventListeners();
             }
         }
     }
+    function addEventListeners() {
+        squares.forEach(square => {
+            square.classList.remove('disabled');
+            square.addEventListener('click', () => {
+                console.log(square.getAttribute('data-x'), square.getAttribute('data-y'));
+                game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
+        })
+    })
+    }
     function removeEventListeners() {
         squares.forEach(square => {
-            square.replaceWith(square.cloneNode(true));
+            square.classList.add('disabled');
         })
     }
     return {
         newGame,
         createPlayer,
         makeAMove,
-        displayBoard
+        displayBoard,
+        addEventListeners
     }
 })();
 
 const boardContainer = document.querySelector('.view.board-container');
 const startContainer = document.querySelector('.view.start');
 const gameOverContainer = document.querySelector('.view.game-over');
-const gameDrawContainer = document.querySelector('.view.game-draw');
 const playerSetupContainer = document.querySelector('.view.player-setup');
 const turnDetail = document.querySelector('.turn-detail');
 
@@ -154,12 +173,20 @@ startBtn.addEventListener('click', () => {
     game.createPlayer(player1, 'x');
     game.createPlayer(player2, 'o');
     game.displayBoard();
+    game.addEventListeners();
 })
 
-const squares = document.querySelectorAll('.square');
-squares.forEach(square => {
-    square.addEventListener('click', () => {
-        console.log(square.getAttribute('data-x'), square.getAttribute('data-y'));
-        game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
-    })
+// const squares = document.querySelectorAll('.square');
+// squares.forEach(square => {
+//     square.addEventListener('click', () => {
+//         console.log(square.getAttribute('data-x'), square.getAttribute('data-y'));
+//         game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
+//     })
+// })
+
+const newGameBtn = document.getElementById('restart-game');
+newGameBtn.addEventListener('click', () => {
+    gameOverContainer.classList.add('hidden');
+    console.log('hallu!');
+    game.newGame();
 })
