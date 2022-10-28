@@ -62,7 +62,6 @@ const player = (name, marker) => {
 }
 
 const game = (() => {
-    const squares = document.querySelectorAll('.square');
     let movesCounter = 0;
     let even = true;
     let player1 = {};
@@ -91,13 +90,14 @@ const game = (() => {
     const newGame = () => {
         gameBoard.resetBoard();
         movesCounter = 0;
-        even = true;
         displayBoard();
-        addEventListeners();
+        squares.forEach(square => {
+            square.classList.remove('disabled');
+        })
     }
     const makeAMove = (xIndex, yIndex) => {
         even = movesCounter % 2 === 0 ? true : false;
-        if (movesCounter % 2 === 0) {
+        if (even) {
             if (player1.placeMarker(xIndex, yIndex)) {
                 movesCounter++;
                 console.log('Move success!')
@@ -124,14 +124,6 @@ const game = (() => {
             }
         }
     }
-    function addEventListeners() {
-        squares.forEach(square => {
-            square.classList.remove('disabled');
-            square.addEventListener('click', () => {
-                game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
-        })
-    })
-    }
     function removeEventListeners() {
         squares.forEach(square => {
             square.classList.add('disabled');
@@ -142,7 +134,6 @@ const game = (() => {
         createPlayer,
         makeAMove,
         displayBoard,
-        addEventListeners
     }
 })();
 
@@ -169,7 +160,13 @@ startBtn.addEventListener('click', () => {
     game.createPlayer(player1, 'x');
     game.createPlayer(player2, 'o');
     game.displayBoard();
-    game.addEventListeners();
+})
+
+const squares = document.querySelectorAll('.square');
+squares.forEach(square => {
+    square.addEventListener('click', () => {
+        game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
+    })
 })
 
 const newGameBtn = document.getElementById('restart-game');
