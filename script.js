@@ -67,8 +67,14 @@ const game = (() => {
     let player1 = {};
     let player2 = {};
     const createPlayer = (name, marker) => {
-        if (Object.keys(player1).length === 0) player1 = Object.assign(player1, player(name, marker));
-        else player2 = Object.assign(player2, player(name, marker));
+        if (Object.keys(player1).length === 0){
+            player1 = Object.assign(player1, player(name, marker));
+            console.log(`Player 1 is ${player1.name}`)
+        }
+        else {
+            player2 = Object.assign(player2, player(name, marker));
+            console.log(`Player 2 is ${player2.name}`)
+        }
     }
     const displayBoard = () => {
         if (movesCounter % 2 === 0) turnDetail.textContent = `${player1.name}'s turn (${player1.getMarker()})`;
@@ -94,6 +100,10 @@ const game = (() => {
         squares.forEach(square => {
             square.classList.remove('disabled');
         })
+    }
+    const fromTheTop = () => {
+        player1 = {};
+        player2 = {};
     }
     const makeAMove = (xIndex, yIndex) => {
         even = movesCounter % 2 === 0 ? true : false;
@@ -134,6 +144,7 @@ const game = (() => {
         createPlayer,
         makeAMove,
         displayBoard,
+        fromTheTop,
     }
 })();
 
@@ -173,4 +184,13 @@ const newGameBtn = document.getElementById('restart-game');
 newGameBtn.addEventListener('click', () => {
     gameOverContainer.classList.add('hidden');
     game.newGame();
+})
+
+const fromTheToptBtn = document.getElementById('new-game');
+fromTheToptBtn.addEventListener('click', () => {
+    gameOverContainer.classList.add('hidden');
+    boardContainer.classList.add('hidden');
+    playerSetupContainer.classList.remove('hidden');
+    game.newGame();
+    game.fromTheTop();
 })
