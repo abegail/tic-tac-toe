@@ -19,8 +19,8 @@ body {
 }
 
 .board {
-    width: 300px;
-    height: 300px;
+    width: 90%;
+    aspect-ratio: 1/1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -142,6 +142,16 @@ input {
 
 .board > div {
     border: 1px solid #F0F0CC;
+}
+
+.turn-detail {
+    padding: 0 10%;
+    text-align: center;
+}
+
+.transform {
+    transform: translateY(-20%) scale(0.6);
+    transition: 500ms;
 }
 
 .hidden {

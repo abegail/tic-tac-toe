@@ -126,10 +126,12 @@ const game = (() => {
                 let winner = even ? player1.name : player2.name;
                 turnDetail.textContent = `Game Over! ${winner} wins!`
                 gameOverContainer.classList.remove('hidden');
+                boardDisplay.classList.add('transform');
                 removeEventListeners();
             } else if (movesCounter === 9) {
                 turnDetail.textContent = `Game Over! It's a draw!`
                 gameOverContainer.classList.remove('hidden');
+                boardDisplay.classList.add('transform');
                 removeEventListeners();
             }
         }
@@ -150,9 +152,10 @@ const game = (() => {
 
 const boardContainer = document.querySelector('.view.board-container');
 const startContainer = document.querySelector('.view.start');
-const gameOverContainer = document.querySelector('.view.game-over');
+const gameOverContainer = document.querySelector('.game-over');
 const playerSetupContainer = document.querySelector('.view.player-setup');
 const turnDetail = document.querySelector('.turn-detail');
+const boardDisplay = document.querySelector('.board');
 
 const playBtn = document.getElementById('play');
 playBtn.addEventListener('click', () => {
