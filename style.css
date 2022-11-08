@@ -72,7 +72,8 @@ h1 {
 }
 
 .board > * {
-    font-size: 6rem;
+    font-size: 5rem;
+    color: #765169;
 }
 
 label, .turn-detail {
@@ -129,19 +130,25 @@ input {
     justify-content: center;
 }
 
+.board-container {
+    gap: 5%;
+}
+
+.board {
+    border: 1px solid #F0F0CC;
+    border-radius: 32px;
+    background-color: #64CB97;
+}
+
+.board > div {
+    border: 1px solid #F0F0CC;
+}
+
 .hidden {
     display: none;
 }
 
 /* WILL BE REMOVED */
-
-.board {
-    border: 1px solid black;
-}
-
-.board > div {
-    border: 1px solid red;
-}
 
 /* #player-input > *{
     border: 1px solid red;
