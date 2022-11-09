@@ -150,6 +150,7 @@ input {
     border: 1px solid #F0F0CC;
     border-radius: 32px;
     background-color: #64CB97;
+    transition: 500ms;
 }
 
 .board > div {

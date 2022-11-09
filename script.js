@@ -186,6 +186,7 @@ squares.forEach(square => {
 const newGameBtn = document.getElementById('restart-game');
 newGameBtn.addEventListener('click', () => {
     gameOverContainer.classList.add('hidden');
+    boardDisplay.classList.remove('transform');
     game.newGame();
 })
 
