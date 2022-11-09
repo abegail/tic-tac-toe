@@ -72,16 +72,21 @@ button:active {
 }
 
 .game-over > button {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+}
+
+.game-over {
+    width: 90%;
+    margin-top: -10rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .board > * {
-    font-size: 5rem;
+    font-size: 4rem;
     color: #765169;
-}
-
-.turn-detail {
-    font-size: 2.5rem;
 }
 
 label {
@@ -152,12 +157,14 @@ input {
 }
 
 .turn-detail {
-    padding: 0 10%;
+    padding: 0 5%;
     text-align: center;
+    font-size: 2.5rem;
+    margin-top: 0.5rem;
 }
 
 .transform {
-    transform: translateY(-20%) scale(0.6);
+    transform: translateY(-30%) scale(0.4);
     transition: 500ms;
 }
 
