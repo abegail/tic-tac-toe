@@ -43,7 +43,7 @@ button {
     font-family: 'CustomFont', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 3rem;
     text-transform: uppercase;
-    padding: 1rem 2rem 1.3rem 2rem;
+    padding: 0.3rem 2rem 0.7rem 2rem;
     border-radius: 32px;
     border: none;
     cursor: pointer;
@@ -63,8 +63,12 @@ button:active {
     transition: 200ms;
 }
 
-h1 {
-    font-size: 8rem;
+.title {
+    font-size: 7rem;
+}
+
+.start {
+    gap: 8%;
 }
 
 .game-over > button {
@@ -76,24 +80,28 @@ h1 {
     color: #765169;
 }
 
-label, .turn-detail {
+.turn-detail {
     font-size: 2.5rem;
+}
+
+label {
+    font-size: 1.75rem;
 }
 
 input {
     font-family: 'CustomFont', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     background-color: #64CB97;
     border: 1px solid #64CB97;
-    border-radius: 24px;
-    height: 4rem;
-    padding: 0 1rem;
+    border-radius: 12px;
+    height: 2.5rem;
+    padding: 0 1rem 0.1rem;
     width: 85%;
     text-align: center;
 }
 
 .view {
-    width: max(30vw, 400px);
+    width: max(30vw, 300px);
     aspect-ratio: 0.7;
     margin-top: max(8vh, 45px);
     margin-left: auto;
@@ -106,7 +114,6 @@ input {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20%;
 }
 
 .player-1, .player-2 {
