@@ -195,6 +195,7 @@ fromTheToptBtn.addEventListener('click', () => {
     gameOverContainer.classList.add('hidden');
     boardContainer.classList.add('hidden');
     playerSetupContainer.classList.remove('hidden');
+    boardDisplay.classList.remove('transform');
     game.newGame();
     game.fromTheTop();
 })
