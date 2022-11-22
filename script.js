@@ -183,7 +183,7 @@ startBtn.forEach(button => {
     button.addEventListener('click', () => {
         boardContainer.classList.remove('hidden');
 
-        const player1 = document.getElementById('player-1').value || 'Player 1';
+        const player1 = document.getElementById('player-1').value || document.getElementById('player-human').value || 'Player 1';
         let player2 = '';
 
         if (game.opponentIsComputer) {
@@ -215,6 +215,11 @@ const squares = document.querySelectorAll('.square');
 squares.forEach(square => {
     square.addEventListener('click', () => {
         game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
+        if (game.opponentIsComputer) {
+            setTimeout(() => {
+                game.makeAMove.apply(this, computer.calculateCoordinates());
+            }, 1000);
+        }
     })
 })
 
@@ -234,3 +239,16 @@ fromTheToptBtn.addEventListener('click', () => {
     game.newGame();
     game.fromTheTop();
 })
+
+const computer = (() => {
+    const test = () => {
+        console.log('Computer will make a move!');
+    }
+    const calculateCoordinates = () => {
+        return [1, 1];
+    }
+    return {
+        test,
+        calculateCoordinates
+    }
+})();
