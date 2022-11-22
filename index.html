@@ -11,7 +11,8 @@
 <body>
     <div class="view start">
         <div class="title">XOXO</div>
-        <button type="button" id="play">Play!</button>
+        <button type="button" id="play">Play with a friend</button>
+        <button type="button" id="play-bot">Play with a bot</button>
     </div>
     <div class="view player-setup hidden">
         <form id="player-input">
@@ -24,7 +25,18 @@
                 <input type="text" name="player-2" id="player-2">
             </div>
             <div class="start-game">
-                <button type="button" id="startGame">Start</button>
+                <button type="button" class="startGame">Start</button>
+            </div>
+        </form>
+    </div>
+    <div class="view player-setup-bot hidden">
+        <form id="player-input-bot">
+            <div class="player-1">
+                <label for="player-1">Your name</label>
+                <input type="text" name="player-1" id="player-1">
+            </div>
+            <div class="start-game">
+                <button type="button" class="startGame">Start</button>
             </div>
         </form>
     </div>

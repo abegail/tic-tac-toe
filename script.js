@@ -62,6 +62,7 @@ const player = (name, marker) => {
 }
 
 const game = (() => {
+    let opponentIsComputer = false;
     let movesCounter = 0;
     let even = true;
     let player1 = {};
@@ -147,6 +148,7 @@ const game = (() => {
         makeAMove,
         displayBoard,
         fromTheTop,
+        opponentIsComputer,
     }
 })();
 
@@ -157,24 +159,57 @@ const playerSetupContainer = document.querySelector('.view.player-setup');
 const turnDetail = document.querySelector('.turn-detail');
 const boardDisplay = document.querySelector('.board');
 
+// for ze bot
+
+const botPlayerSetupContainer = document.querySelector('.view.player-setup-bot');
+
+const playBotBtn = document.getElementById('play-bot');
+playBotBtn.addEventListener('click', () => {
+    botPlayerSetupContainer.classList.remove('hidden');
+    startContainer.classList.add('hidden');
+    game.opponentIsComputer = true;
+    console.log(game.opponentIsComputer);
+})
+
 const playBtn = document.getElementById('play');
 playBtn.addEventListener('click', () => {
     playerSetupContainer.classList.remove('hidden');
     startContainer.classList.add('hidden');
+    console.log(game.opponentIsComputer);
 })
 
-const startBtn = document.getElementById('startGame');
-startBtn.addEventListener('click', () => {
-    boardContainer.classList.remove('hidden');
-    playerSetupContainer.classList.add('hidden');
+const startBtn = document.querySelectorAll('.startGame');
+startBtn.forEach(button => {
+    button.addEventListener('click', () => {
+        boardContainer.classList.remove('hidden');
 
-    const player1 = document.getElementById('player-1').value || 'Player 1';
-    const player2 = document.getElementById('player-2').value || 'Player 2';
+        const player1 = document.getElementById('player-1').value || 'Player 1';
+        let player2 = '';
 
-    game.createPlayer(player1, 'x');
-    game.createPlayer(player2, 'o');
-    game.displayBoard();
+        if (game.opponentIsComputer) {
+            player2 = 'Computer';
+            botPlayerSetupContainer.classList.add('hidden');
+        } else {
+            player2 = document.getElementById('player-2').value || 'Player 2';
+            playerSetupContainer.classList.add('hidden');
+        }
+        game.createPlayer(player1, 'x');
+        game.createPlayer(player2, 'o');
+        game.displayBoard();
+    })
 })
+
+// startBtn.addEventListener('click', () => {
+//     boardContainer.classList.remove('hidden');
+//     playerSetupContainer.classList.add('hidden');
+
+//     const player1 = document.getElementById('player-1').value || 'Player 1';
+//     const player2 = document.getElementById('player-2').value || 'Player 2';
+
+//     game.createPlayer(player1, 'x');
+//     game.createPlayer(player2, 'o');
+//     game.displayBoard();
+// })
 
 const squares = document.querySelectorAll('.square');
 squares.forEach(square => {
