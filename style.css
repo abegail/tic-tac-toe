@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url(./assets/Gagalin-Regular.otf);
+}
+
 html {
     font-size: 16px;
     font-family: 'CustomFont', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -11,11 +16,6 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-@font-face {
-    font-family: 'CustomFont';
-    src: url(./assets/Gagalin-Regular.otf);
 }
 
 .board {
