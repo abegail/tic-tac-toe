@@ -4,6 +4,17 @@ const gameBoard = (() => {
         ['','','',],
         ['','','',]
     ]
+    const getEmptySquares = () => {
+        let emptySquares = []
+        for (let x = 0; x < 3; x++) {
+            for (let y = 0; y < 3; y++) {
+                if (board[x][y] === ''){
+                    emptySquares.push([x,y]);
+                }
+            }         
+        }
+        return emptySquares;
+    }
     const addMarker = (marker, xIndex, yIndex) => {
         if(board[xIndex][yIndex] !== '') {
             return false;
@@ -47,7 +58,8 @@ const gameBoard = (() => {
         board,
         addMarker,
         checkForWinner,
-        resetBoard
+        resetBoard,
+        getEmptySquares
     }
 })();
 
@@ -245,7 +257,11 @@ const computer = (() => {
         console.log('Computer will make a move!');
     }
     const calculateCoordinates = () => {
-        return [1, 1];
+        const emptySquares = gameBoard.getEmptySquares();
+        console.log(emptySquares);
+        const randomIndex = Math.floor(Math.random() * emptySquares.length);
+        const coordinate = emptySquares[randomIndex];
+        return coordinate;
     }
     return {
         test,
