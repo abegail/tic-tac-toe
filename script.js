@@ -107,6 +107,7 @@ const game = (() => {
         })
     }
     const newGame = () => {
+        isGameOver = [];
         gameBoard.resetBoard();
         movesCounter = 0;
         displayBoard();
@@ -136,6 +137,7 @@ const game = (() => {
         displayBoard();
         if (movesCounter > 4) {
             if (gameBoard.checkForWinner()) {
+                isGameOver.push('1');
                 let winner = even ? player1.name : player2.name;
                 turnDetail.textContent = `Game Over! ${winner} wins!`
                 gameOverContainer.classList.remove('hidden');
@@ -154,6 +156,14 @@ const game = (() => {
             square.classList.add('disabled');
         })
     }
+    let isGameOver = []
+    const gameOver = () => {
+        if (isGameOver.length == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     return {
         newGame,
         createPlayer,
@@ -161,6 +171,7 @@ const game = (() => {
         displayBoard,
         fromTheTop,
         opponentIsComputer,
+        gameOver,
     }
 })();
 
@@ -180,7 +191,7 @@ playBotBtn.addEventListener('click', () => {
     botPlayerSetupContainer.classList.remove('hidden');
     startContainer.classList.add('hidden');
     game.opponentIsComputer = true;
-    console.log(game.opponentIsComputer);
+    // console.log(game.opponentIsComputer);
 })
 
 const playBtn = document.getElementById('play');
@@ -227,10 +238,12 @@ const squares = document.querySelectorAll('.square');
 squares.forEach(square => {
     square.addEventListener('click', () => {
         game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
-        if (game.opponentIsComputer) {
+        console.log(game.gameOver());
+        if (game.opponentIsComputer && !game.gameOver()) {
+            console.log('I came in here.')
             setTimeout(() => {
                 game.makeAMove.apply(this, computer.calculateCoordinates());
-            }, 1000);
+            }, 700);
         }
     })
 })
@@ -246,7 +259,7 @@ const fromTheToptBtn = document.getElementById('new-game');
 fromTheToptBtn.addEventListener('click', () => {
     gameOverContainer.classList.add('hidden');
     boardContainer.classList.add('hidden');
-    playerSetupContainer.classList.remove('hidden');
+    startContainer.classList.remove('hidden');
     boardDisplay.classList.remove('transform');
     game.newGame();
     game.fromTheTop();
