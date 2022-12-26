@@ -82,17 +82,17 @@ const game = (() => {
     const createPlayer = (name, marker) => {
         if (Object.keys(player1).length === 0){
             player1 = Object.assign(player1, player(name, marker));
-            console.log(`Player 1 is ${player1.name}`)
+            // console.log(`Player 1 is ${player1.name}`)
         }
         else {
             player2 = Object.assign(player2, player(name, marker));
-            console.log(`Player 2 is ${player2.name}`)
+            // console.log(`Player 2 is ${player2.name}`)
         }
     }
     const displayBoard = () => {
         if (movesCounter % 2 === 0) turnDetail.textContent = `${player1.name}'s turn (${player1.getMarker()})`;
         else turnDetail.textContent = `${player2.name}'s turn (${player2.getMarker()})`;
-        console.log(gameBoard.board);
+        // console.log(gameBoard.board);
         let x = 0;
         let y = 0;
         squares.forEach(square => {
@@ -124,15 +124,15 @@ const game = (() => {
         if (even) {
             if (player1.placeMarker(xIndex, yIndex)) {
                 movesCounter++;
-                console.log('Move success!')
+                // console.log('Move success!')
             }
-            else console.log('Illegal move!')
+            // else console.log('Illegal move!')
         } else {
             if (player2.placeMarker(xIndex, yIndex)) {
                 movesCounter++;
-                console.log('Move success!')
+                // console.log('Move success!')
             }
-            else console.log('Illegal move!')
+            // else console.log('Illegal move!')
         }
         displayBoard();
         if (movesCounter > 4) {
@@ -198,7 +198,8 @@ const playBtn = document.getElementById('play');
 playBtn.addEventListener('click', () => {
     playerSetupContainer.classList.remove('hidden');
     startContainer.classList.add('hidden');
-    console.log(game.opponentIsComputer);
+    game.opponentIsComputer = false;
+    // console.log(game.opponentIsComputer);
 })
 
 const startBtn = document.querySelectorAll('.startGame');
@@ -208,6 +209,8 @@ startBtn.forEach(button => {
 
         const player1 = document.getElementById('player-1').value || document.getElementById('player-human').value || 'Player 1';
         let player2 = '';
+
+        console.log(`game.opponentIsComputer is: ${game.opponentIsComputer}`);
 
         if (game.opponentIsComputer) {
             player2 = 'Computer';
@@ -238,9 +241,10 @@ const squares = document.querySelectorAll('.square');
 squares.forEach(square => {
     square.addEventListener('click', () => {
         game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
-        console.log(game.gameOver());
+        // console.log(game.gameOver());
         if (game.opponentIsComputer && !game.gameOver()) {
-            console.log('I came in here.')
+            // console.log('I came in here.')
+            square.classList.add('disabled');
             setTimeout(() => {
                 game.makeAMove.apply(this, computer.calculateCoordinates());
             }, 700);
@@ -250,6 +254,7 @@ squares.forEach(square => {
 
 const newGameBtn = document.getElementById('restart-game');
 newGameBtn.addEventListener('click', () => {
+    console.log(game.opponentIsComputer);
     gameOverContainer.classList.add('hidden');
     boardDisplay.classList.remove('transform');
     game.newGame();
@@ -267,11 +272,11 @@ fromTheToptBtn.addEventListener('click', () => {
 
 const computer = (() => {
     const test = () => {
-        console.log('Computer will make a move!');
+        // console.log('Computer will make a move!');
     }
     const calculateCoordinates = () => {
         const emptySquares = gameBoard.getEmptySquares();
-        console.log(emptySquares);
+        // console.log(emptySquares);
         const randomIndex = Math.floor(Math.random() * emptySquares.length);
         const coordinate = emptySquares[randomIndex];
         return coordinate;
