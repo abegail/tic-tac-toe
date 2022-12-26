@@ -241,12 +241,19 @@ const squares = document.querySelectorAll('.square');
 squares.forEach(square => {
     square.addEventListener('click', () => {
         game.makeAMove(square.getAttribute('data-x'), square.getAttribute('data-y'));
-        // console.log(game.gameOver());
+        square.classList.add('disabled');
         if (game.opponentIsComputer && !game.gameOver()) {
             // console.log('I came in here.')
-            square.classList.add('disabled');
+            squares.forEach(square => {
+                square.classList.add('disabled');
+            })
             setTimeout(() => {
-                game.makeAMove.apply(this, computer.calculateCoordinates());
+                let temp = computer.calculateCoordinates();
+                console.log(temp);
+                game.makeAMove.apply(this, temp);
+                squares.forEach(square => {
+                    square.classList.remove('disabled');
+                })
             }, 700);
         }
     })
