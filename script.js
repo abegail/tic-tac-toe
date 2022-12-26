@@ -252,7 +252,9 @@ squares.forEach(square => {
                 console.log(temp);
                 game.makeAMove.apply(this, temp);
                 squares.forEach(square => {
-                    square.classList.remove('disabled');
+                    if(gameBoard.board[square.getAttribute('data-x')][square.getAttribute('data-y')] === ''){
+                        square.classList.remove('disabled');
+                    }
                 })
             }, 700);
         }
